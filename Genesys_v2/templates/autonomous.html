@@ -1,0 +1,53 @@
+{% extends "common.html" %}
+
+{% block title %}
+ - Autonomous
+{% endblock title %}
+
+{% block extra_body_top %}
+<div class="container text-center">
+    <button type="button" class="p-10 btn btn-danger mb-2" id="goAuto">Go Autonomous</button>
+</div>
+{% endblock extra_body_top %}
+
+{% block feed_col %}"col-auto"{% endblock feed_col %}
+
+{% block Detection_status %}
+<div class="row">
+    <div class="col rounded bg-primary text-white mx-3">
+        <p class="mt-1"><b>Detection Status:</b></p>
+        <p class="text-center" style="font-size:1.2rem">Left Arrow</p>
+    </div>
+</div>
+{% endblock Detection_status %}
+
+{% block addGPS %}
+<tr>
+    <th scope="row">Next Location</th>
+    <td id="currentGPS">41°24'12.2"N 2°10'26.5"E</td>
+</tr>
+<tr>
+    <th scope="row">Add Location</th>
+    <td>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="GPS Coordinates" aria-label="GPS Coordinates" aria-describedby="btnNextGPS" id="nextGPS">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id="btnNextGPS">Add</button>
+            </div>
+        </div>
+    </td>
+</tr>
+{% endblock addGPS %}
+
+{% block listOfLocations %}
+<div class="col">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr><th scope="col">Location</th></tr>
+            </thead>
+            <tbody>
+                <tr><td class="bg-success" id="tempGPS">41°24'12.2"N 2°10'26.5"E</td></tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock listOfLocations %}

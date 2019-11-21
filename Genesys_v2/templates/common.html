@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block common_body %}
+<!-- Cam Feed and Values -->
+<div class="row">
+    <!-- Camera Feed -->
+    <div class={% block feed_col %}{% endblock feed_col %} style="background-color:powderblue;">
+        <div class="input-group mb-3 mt-1">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Camera Feed</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01">
+                <option selected value="0">Choose...</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+                <option value="4">Four</option>
+            </select>
+        </div>
+        <img src="{{url_for('video_feed')}}" class="img-fluid rounded mx-auto d-block mb-2" alt="static/images/Technocrats_Robotics_v2.png">
+    </div>
+    <!-- End of Camera Feed -->
+
+    <!-- Force next columns to break to new line -->
+    <!-- <div class="w-100"></div> -->
+
+    {% block soil_values %}{% endblock soil_values %}
+    <!-- Electrical Values -->
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th colspan="2" scope="col">Electrical Values</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Battery 1</th>
+                            <td><span id="battery1">24.9</span> V</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Battery 2</th>
+                            <td><span id="battery2">24</span> V</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Motor 1</th>
+                            <td><span id="motor1">5</span> A</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Motor 2</th>
+                            <td><span id="motor2">5</span> A</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Motor 3</th>
+                            <td><span id="motor3">5</span> A</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Motor 4</th>
+                            <td><span id="motor4">5</span> A</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Motor 5</th>
+                            <td><span id="motor5">5</span> A</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Motor 6</th>
+                            <td><span id="motor6">5</span> A</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% block Detection_status %}{% endblock Detection_status %}
+    </div>
+    <!--  End of Electrical Values -->
+</div>
+<!-- End of Feed and Values -->
+
+<!-- GPS values -->
+<div class="row my-2">
+    <div class="col">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th colspan="2" scope="col">GPS Values</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Current Location</th>
+                    <td id="currentGPS">41°24'12.2"N 2°10'26.5"E</td>
+                </tr>
+                {% block addGPS %}{% endblock addGPS %}
+            </tbody>
+        </table>
+    </div>
+    {% block listOfLocations %}{% endblock listOfLocations %}
+</div>
+<!-- End of GPS values -->
+{% endblock common_body %}
+
+{% block javascripts %}
+<script src="static/js/common.js"></script>
+{% endblock javascripts %}

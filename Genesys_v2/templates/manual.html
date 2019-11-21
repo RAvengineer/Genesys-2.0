@@ -1,0 +1,20 @@
+{% extends "common.html" %}
+
+{% block title %}
+ - Manual
+{% endblock title %}
+
+{% block feed_col %}"col-auto"{% endblock feed_col %}
+
+{% block extra_body_bottom %}
+<div class="row my-2">
+    <div class="col mr-1 border border-success my-auto">
+        <p><b>Base Motors Status</b></p>
+        <div class="p-3 mb-2 rounded bg-primary text-center text-white" id="BaseStatus">Idle</div>
+    </div>
+    <div class="col ml-1 border border-success my-auto">
+        <p><b>Arm Motors Status</b></p>
+        <div class="p-3 mb-2 rounded bg-primary text-center text-white" id="ArmStatus">Idle</div>
+    </div>
+</div>
+{% endblock extra_body_bottom %}

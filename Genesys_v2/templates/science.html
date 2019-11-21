@@ -1,0 +1,68 @@
+{% extends "common.html" %}
+
+{% block title %}
+ - Science
+{% endblock title %}
+
+{% block feed_col %}"col-6"{% endblock feed_col %}
+
+{% block soil_values %}
+<div class="col-auto">
+    <table class="table table-bordered gpsTable table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th colspan="2" scope="col">Sensor Values</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Atmospheric Pressure</th>
+                <td><span id="atmPressure">1004.79</span> hPa</td>
+            </tr>
+            <tr>
+                <th scope="row">Atmospheric Temperature</th>
+                <td><span id="atmTemp">29.99</span> &#8451;</td>
+            </tr>
+            <tr>
+                <th scope="row">Atmospheric Humidity</th>
+                <td><span id="atmHum">59.99</span> %</td>
+            </tr>
+            <tr>
+                <th scope="row">Methane Concentration</th>
+                <td><span id="CH4">1.854</span> ppm</td>
+            </tr>
+            <tr>
+                <th scope="row">UV Index</th>
+                <td><span id="UV">3</span></td>
+            </tr>
+            <tr>
+                <th scope="row">Soil Temperature</th>
+                <td><span id="soilTemp">29.99</span> &#8451;</td>
+            </tr>
+            <tr>
+                <th scope="row">Soil pH</th>
+                <td><span id="soilpH">7</span> pH</td>
+            </tr>
+            <tr>
+                <th scope="row">Soil Moisture</th>
+                <td><span id="soilMoisture">58.88</span> %</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock soil_values %}
+
+{% block extra_body_bottom %}
+<div class="row my-2">
+    <div class="col mr-1 border border-success my-auto">
+        <p><b>Base Motors Status</b></p>
+        <div class="p-3 mb-2 rounded bg-primary text-center text-white" id="BaseStatus">Idle</div>
+    </div>
+    <div class="col ml-1 border border-success my-auto">
+        <p><b>Hot Keys</b></p>
+        {% for i in range(10) %}
+        <button type="button" class="btn btn-danger mb-2 p-3" id="btnHotKeys{{i}}">{{i}}</button>
+        {% endfor %}
+    </div>
+</div>
+{% endblock extra_body_bottom %}
