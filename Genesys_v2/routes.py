@@ -41,8 +41,9 @@ def addGPS():
     b = request.args.get('b', 0, type=int)
     return jsonify(result=a + b)
 
-@app.route('/getElectricalValues')
-def getElectricalValues():
+@app.route('/getElectricalGpsValues')
+def getElectricalGpsValues():
+    current_gps = "CURRENT_GPS"
     battery1 = round(uniform(20.0,24.0),1)
     battery2 = round(uniform(20.0,24.0),1)
     motor1 = round(uniform(0.0,5.0),1)
@@ -52,6 +53,7 @@ def getElectricalValues():
     motor5 = round(uniform(0.0,5.0),1)
     motor6 = round(uniform(0.0,5.0),1)
     return jsonify(
+        current_gps = current_gps,
         battery1=battery1,
         battery2=battery2,
         motor1=motor1,
