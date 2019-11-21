@@ -26,6 +26,8 @@ function updateElectricalValues(data) {
 }
 
 /*
+NOTE: For using Ajax, see to it that you have included the uncompressed version of JQuery!
+
 References for Ajax:
 https://code-maven.com/slides/python-programming/flask-and-ajax-jquery
 https://flask.palletsprojects.com/en/1.1.x/patterns/jquery/
