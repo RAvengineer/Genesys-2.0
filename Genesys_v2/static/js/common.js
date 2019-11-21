@@ -1,5 +1,16 @@
 var data_refresh_interval = 1000; // in (ms)
 
+$("#cameraNumber").on('change',function(){
+    data_to_be_sent = {'cameraNumber':this.value};
+    $.ajax({
+        type: "POST",
+        url: "/changeCamera",
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(data_to_be_sent),
+    });
+});
+
 setInterval(getElectricalGpsValues,data_refresh_interval);
 
 function getElectricalGpsValues() {

@@ -2,6 +2,9 @@ from flask import render_template, request, Response,jsonify
 from Genesys_v2 import app
 from Utilities.CamFeed import CamFeed
 
+# Variables
+cameraNumber = 0
+
 # TODO: Remove later
 from random import uniform
 
@@ -34,6 +37,22 @@ def video_feed():
     camera = CamFeed()
     return Response(camera.gen(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/changeCamera',methods=['POST'])
+def changeCamera():
+    global cameraNumber
+    # method = GET
+    # request.args returns ImmutableMultiDict type
+    # print(request.args) gives ImmutableMultiDict([('{"cameraNumber":"2"}', '')])
+    # print(request.args.to_dict()) gives {'{"cameraNumber":"2"}': ''}
+    # print(list(request.args.to_dict().keys()))
+    # method = POST
+    # print(request.json['cameraNumber']) gives '2'
+    # print(request.get_json()) gives {'cameraNumber': '2'}
+    
+    cameraNumber = request.json['cameraNumber'] # type(cameraNumber): <class 'str'>
+    print("Camera Number Selected:",cameraNumber)
+    return jsonify(status="changed")
 
 @app.route('/addGPS')
 def addGPS():
