@@ -54,6 +54,13 @@ def changeCamera():
     print("Camera Number Selected:",cameraNumber)
     return jsonify(status="changed")
 
+@app.route('/getGamepadKeys')
+def getGamepadKeys():
+    return jsonify(
+        mode="baseMotors",
+        command="STOP"
+    )
+
 @app.route('/addGPS')
 def addGPS():
     a = request.args.get('a', 0, type=int)
