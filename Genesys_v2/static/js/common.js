@@ -1,6 +1,8 @@
 var data_refresh_interval = 1000; // in (ms)
 
-setInterval(function(){
+setInterval(getElectricalValues,data_refresh_interval);
+
+function getElectricalValues() {
     $.ajax({
         type: "GET",
         url: "/getElectricalValues",
@@ -9,15 +11,10 @@ setInterval(function(){
             console.log("Get Electrical Values in common.js failed");
         }
     });
-    }
-    ,data_refresh_interval);
-
-function getElectricalValues() {
-
 }
 
 function updateElectricalValues(data) {
-    console.log("Updating");
+    // console.log("Updating"); // Debugging
     $("#battery1").text(data.battery1);
     $("#battery2").text(data.battery2);
     $("#motor1").text(data.motor1);
