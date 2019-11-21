@@ -43,14 +43,14 @@ def addGPS():
 
 @app.route('/getElectricalValues')
 def getElectricalValues():
-    battery1 = uniform(20.0,24.0)
-    battery2 = uniform(20.0,24.0)
-    motor1 = uniform(0.0,5.0)
-    motor2 = uniform(0.0,5.0)
-    motor3 = uniform(0.0,5.0)
-    motor4 = uniform(0.0,5.0)
-    motor5 = uniform(0.0,5.0)
-    motor6 = uniform(0.0,5.0)
+    battery1 = round(uniform(20.0,24.0),1)
+    battery2 = round(uniform(20.0,24.0),1)
+    motor1 = round(uniform(0.0,5.0),1)
+    motor2 = round(uniform(0.0,5.0),1)
+    motor3 = round(uniform(0.0,5.0),1)
+    motor4 = round(uniform(0.0,5.0),1)
+    motor5 = round(uniform(0.0,5.0),1)
+    motor6 = round(uniform(0.0,5.0),1)
     return jsonify(
         battery1=battery1,
         battery2=battery2,
