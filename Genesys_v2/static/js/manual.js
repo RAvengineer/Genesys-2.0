@@ -1,0 +1,1 @@
+var data_refresh_interval = 1000; // in (ms)
