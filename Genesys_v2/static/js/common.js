@@ -24,3 +24,10 @@ function updateElectricalValues(data) {
     $("#motor5").text(data.motor5);
     $("#motor6").text(data.motor6);
 }
+
+/*
+References for Ajax:
+https://code-maven.com/slides/python-programming/flask-and-ajax-jquery
+https://flask.palletsprojects.com/en/1.1.x/patterns/jquery/
+https://learn.jquery.com/ajax/jquery-ajax-methods/
+*/
