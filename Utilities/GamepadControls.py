@@ -53,7 +53,10 @@ class GamepadControls:
             # BTN_START 1 => START Button
             if(command[1]=="BTN_START" and command[2]==1):
                 self.armMode = False
-                return ("Gamepad Connected",)
+                self.gamepadActive = not self.gamepadActive
+                return ("Gamepad Activity Toggled",)
+            elif(self.gamepadActive==False):
+                return ("Gamepad Inactive",)
             # BTN_SELECT 1 => Back Button
             elif(command[1]=="BTN_SELECT" and command[2]==1):
                 self.armMode = not self.armMode
