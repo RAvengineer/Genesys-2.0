@@ -35,6 +35,11 @@ class GamepadControls:
     
 
     def parseControls(self):
+        """
+        Parse the commands received from the gamepad and map them to 
+        fit the users need.
+        Returns a Tuple (value, status) => value(int), status(str)
+        """
         command = self.getGamepad()
         if(command[0]=="No Gamepad"):
             return ("Gamepad Disconnected",)
@@ -60,6 +65,11 @@ class GamepadControls:
     
     
     def parseArmCommand(self,command):
+        """
+        Parse commands specific to Arm controls.
+        Parameter: command(Tuple)
+        Returns a Tuple (value, status) => value(int), status(str)
+        """
         e_code  = command[1] # e_code = event code (string)
         e_state = command[2] # e_state = event state (int)
         val = -1
@@ -123,6 +133,11 @@ class GamepadControls:
 
 
     def parseWheelCommand(self,command):
+        """
+        Parse commands specific to Motor Wheel controls.
+        Parameter: command(Tuple)
+        Returns a Tuple (value, status) => value(int), status(str)
+        """
         e_code  = command[1] # e_code = event code (string)
         e_state = command[2] # e_state = event state (int)
         val = -1
