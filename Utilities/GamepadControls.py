@@ -13,6 +13,7 @@ class GamepadControls:
     """
     def __init__(self):
         self.armMode = False
+        self.gamepadActive = False
     
     
     def getGamepad(self):
@@ -132,6 +133,10 @@ class GamepadControls:
             val = 75
             status = "Gripper rotate Anti-clockwise"
         
+        # None of the Above
+        else:
+            return ('NULL',)
+        
         return (status, val)
 
 
@@ -169,6 +174,11 @@ class GamepadControls:
         
         # TODO: The values (val) in the if structure are to be configured, discuss with
         #       Shreyansh and Saswat
+
+        # None of the Above
+        else:
+            return ('NULL',)
+        
         return (status, val)
 
 """
