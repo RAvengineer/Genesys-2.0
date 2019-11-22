@@ -22,6 +22,9 @@ class GamepadControls:
         try:
             event = inputs.get_gamepad()[0]
             signal.alarm(0)
+            # This 'if' avoids STOP being executed thrice instead of once
+            if(event.code=="SYN_REPORT"):
+                return ('NULL',)
             return (event.ev_type, event.code, event.state)
         except Exception as e:
             if(str(e).find("No gamepad found.")!=-1 or str(e).find("[Errno 19] No such device")!=-1):
