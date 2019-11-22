@@ -50,11 +50,11 @@ class GamepadControls:
         elif(command[0]=="NULL"):
             return command
         else:
-            # BTN_START 1
+            # BTN_START 1 => START Button
             if(command[1]=="BTN_START" and command[2]==1):
                 self.armMode = False
                 return ("Gamepad Connected",)
-            # BTN_START 1
+            # BTN_SELECT 1 => Back Button
             elif(command[1]=="BTN_SELECT" and command[2]==1):
                 self.armMode = not self.armMode
                 return ("Mode Changed",)
