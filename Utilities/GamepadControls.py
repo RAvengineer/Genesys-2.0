@@ -46,6 +46,8 @@ class GamepadControls:
         """
         command = self.getGamepad()
         if(command[0]=="No Gamepad"):
+            self.armMode = False
+            self.gamepadActive = False
             return ("Gamepad Disconnected",)
         elif(command[0]=="NULL"):
             return command
