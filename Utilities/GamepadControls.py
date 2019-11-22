@@ -126,7 +126,7 @@ class GamepadControls:
         # Gripper motor anticlock - Gripper Open => ABS_Z 255
         elif e_code=='ABS_Z':
             val = 71
-            status = "STOP"
+            status = "Gripper motor Anti-clockwise"
         # Gripper rotate clock => BTN_TL 1
         elif e_code=='BTN_TL':
             val = 73
