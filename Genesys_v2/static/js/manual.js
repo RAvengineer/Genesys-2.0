@@ -1,17 +1,146 @@
-setInterval(getGamepadKeys,100);
+// Variables
+var gamepad_NULL = "Null";
+var prevCommand = window.gamepad_NULL;
+var isGamepadActive = false;
+var inArmMode = false;
+var baseCommands = [
+    "Backward",
+    "Right",
+    "Left",
+    "Forward",
+    window.gamepad_NULL,
+    window.gamepad_NULL,
+    window.gamepad_NULL,
+    window.gamepad_NULL,
+    window.gamepad_NULL,
+    window.gamepad_NULL,
+    window.gamepad_NULL,
+    window.gamepad_NULL,
+    window.gamepad_NULL,
+    window.gamepad_NULL,
+    window.gamepad_NULL,
+    window.gamepad_NULL,
+    window.gamepad_NULL,
+];
+var armCommands = [
+    "Actuator 2 LOW",
+    "Actuator 3 LOW",
+    "Actuator 3 HIGH",
+    "Actuator 2 HIGH",
+    "Gripper Rotate Clockwise",
+    "Gripper Rotate Anti-clockwise",
+    "Gripper Open",
+    "Gripper Close",
+    window.gamepad_NULL,
+    window.gamepad_NULL,
+    window.gamepad_NULL,
+    window.gamepad_NULL,
+    "Actuator 1 HIGH",
+    "Actuator 1 LOW",
+    "Base Clockwise",
+    "Base Anti-clockwise",
+    window.gamepad_NULL,
+];
+/*
+Index   Keys
+0       A
+1       B
+2       X
+3       Y
+4       Bumper Left
+5       Bumper Right
+6       Trigger Left
+7       Trigger Right
+8       Back
+9       Start
+10      Unknown
+11      Unknown
+12      Button Up
+13      Button Down
+14      Button Left
+15      Button Right
+16      HOME
+*/
 
-function getGamepadKeys(){
-    $.ajax({
-        url: "/getGamepadKeys",
-        success: updateRoverMotorsStatus,
-        fail: function(){
-            console.log("Get Gamepad Keys in manual.js FAILED");
+window.addEventListener('gamepadconnected', event=>{
+    console.log("Gamepad Connected!");
+    console.log(event.gamepad);
+});
+
+window.addEventListener('gamepaddisconnected', event=>{
+    console.log("Gamepad Disconnected!");
+    console.log(event.gamepad);
+});
+
+function getParsedCommand(gamepad){
+    // For Axes
+
+    // For Buttons and Triggers
+    var i;
+    for (i = 0; i < gamepad.buttons.length; i++) {
+        if(gamepad.buttons[i].pressed){
+            // Gamepad On/Off
+            if(i===9)
+            return "gOF"; // gamepadOnOff
+            // Toggle Mode: Arm or Wheels 
+            else if(i===8)
+            return "tm"; // toggleMode
+
+            if(window.inArmMode)
+            return window.armCommands[i];
+            else
+            return window.baseCommands[i];
         }
-    });
+    }
+    if(i===gamepad.buttons.length)
+    return "STOP";
+
 }
 
-function updateRoverMotorsStatus(data){
-    if(data.mode==="0"){
-        $("#BaseStatus").text(data.command)
+
+function gamepadStatusMode(command) {
+    if(command==="gOF"){
+        window.isGamepadActive = !window.isGamepadActive;
+        window.inArmMode = false; // Reset the mode
+        if(window.isGamepadActive)
+        {$("#gamepadStatus").text("Gamepad ON");}
+        else
+        {$("#gamepadStatus").text("Gamepad OFF");}
+        return window.gamepad_NULL;
     }
+    else if(command==="tm"){
+        window.inArmMode = !window.inArmMode;
+        if(window.inArmMode)
+        $("#gamepadStatus").text("Arm Mode");
+        else
+        $("#gamepadStatus").text("Base Wheels Mode");
+        return window.gamepad_NULL;
+    }
+    return command;  
 }
+
+
+function update(){
+    const gamepads = navigator.getGamepads()
+    if(gamepads[0]){
+        var command = getParsedCommand(gamepads[0])
+        if(command!==window.prevCommand){
+            window.prevCommand = command;
+            command = gamepadStatusMode(command);
+            
+            // If isGamepadActive === false, then all inputs must be registered as Null
+            if(!window.isGamepadActive && command!=="STOP")
+            command = window.gamepad_NULL;
+            // Send the command to the backend
+            console.log(command);
+
+            // Display it in the interface
+            if(window.inArmMode)
+            $("#ArmStatus").text(command);
+            else
+            $("#BaseStatus").text(command);
+            }
+    }
+    window.requestAnimationFrame(update);
+}
+window.requestAnimationFrame(update);
