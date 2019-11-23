@@ -144,3 +144,15 @@ function update(){
     window.requestAnimationFrame(update);
 }
 window.requestAnimationFrame(update);
+
+/*
+References:
+* Controller.js: https://samiare.github.io/Controller.js/
+* Implementing controls using the Gamepad API - Game development | MDN: https://developer.mozilla.org/en-US/docs/Games/Techniques/Controls_Gamepad_API
+* (109) How to Connect a Gamepad to the Browser [ HTML5 Gamepad API ] - YouTube: https://www.youtube.com/watch?v=T8vi1JZyjhs
+* HTML5 Gamepad Tester - For Developers: https://html5gamepad.com/for-developers
+* Using the Gamepad API - Web APIs | MDN: https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
+* Gamepad API - Web APIs | MDN: https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API
+* luser.github.io/gamepadtest/: http://luser.github.io/gamepadtest/
+* gamepadtest/gamepadtest.js at master · luser/gamepadtest: https://github.com/luser/gamepadtest/blob/master/gamepadtest.js
+*/
