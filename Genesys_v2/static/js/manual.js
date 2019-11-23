@@ -1,4 +1,4 @@
-setInterval(getGamepadKeys,data_refresh_interval);
+setInterval(getGamepadKeys,100);
 
 function getGamepadKeys(){
     $.ajax({
@@ -11,7 +11,7 @@ function getGamepadKeys(){
 }
 
 function updateRoverMotorsStatus(data){
-    if(data.mode==="baseMotors"){
+    if(data.mode==="0"){
         $("#BaseStatus").text(data.command)
     }
 }
