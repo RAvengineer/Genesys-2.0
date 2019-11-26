@@ -6,6 +6,7 @@ from Utilities.GamepadControls import GamepadControls
 # Variables
 cameraNumber = 0
 gp = GamepadControls()
+motorCommand = "Null"
 
 # TODO: Remove later
 from random import uniform
@@ -56,25 +57,13 @@ def changeCamera():
     print("Camera Number Selected:",cameraNumber)
     return jsonify(status="changed")
 
-@app.route('/getGamepadKeys')
-def getGamepadKeys():
-    global gp
-    data = gp.parseControls()
-    print(data)
-    
-    if not(gp.gamepadActive):
-        print("Gamepad Inactive")
-        return jsonify(status="0")
-    mode = "0" # 0 => Base Wheels Mode || 1 => Arm Mode
-    if(gp.armMode):
-        mode = "1"
-    if(data[0]=="NULL"):
-        return jsonify(status="2")
-    return jsonify(
-        status="1",
-        mode=mode,
-        command=data[0]
-    )
+@app.route('/gamepadKeys',methods=['POST'])
+def gamepadKeys():
+    global motorCommand
+    motorCommand = request.json['command']
+    # TODO: parse the command received from the webpage
+    print(motorCommand)
+    return jsonify(status="Motor Command Received")
 
 @app.route('/addGPS')
 def addGPS():
