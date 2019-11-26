@@ -120,6 +120,17 @@ function gamepadStatusMode(command) {
 }
 
 
+function sendDataToBackend(command){
+    $.ajax({
+        type: "POST",
+        url: "/gamepadKeys",
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({"command":command}),
+    });
+}
+
+
 function update(){
     const gamepads = navigator.getGamepads()
     if(gamepads[0]){
@@ -133,6 +144,7 @@ function update(){
             command = window.gamepad_NULL;
             // Send the command to the backend
             console.log(command);
+            sendDataToBackend(command);
 
             // Display it in the interface
             if(window.inArmMode)
