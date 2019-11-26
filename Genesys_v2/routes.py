@@ -104,6 +104,27 @@ def getElectricalGpsValues():
         motor5=motor5,
         motor6=motor6
     )
+
+@app.route('/getSensorValues')
+def getSensorValues():
+    atmPressure = round(uniform(1004.79,1004.90),2)
+    atmTemp = round(uniform(27.00,29.00),2)
+    atmHum = round(uniform(55.00,60.00),2)
+    CH4 = round(uniform(1.850,1.854),3)
+    UV = round(uniform(0,3),0)
+    soilTemp = round(uniform(26.00,30.00),2)
+    soilpH = round(uniform(5,7),0)
+    soilMoisture = round(uniform(50,65),2)
+    return jsonify(
+        atmPressure = atmPressure,
+        atmTemp=atmTemp,
+        atmHum=atmHum,
+        CH4=CH4,
+        UV=UV,
+        soilTemp=soilTemp,
+        soilpH=soilpH,
+        soilMoisture=soilMoisture,
+    )
 """
 TODO 1: Take gamepad values
         SetInterval for calling the route '/gamepadEvents'
