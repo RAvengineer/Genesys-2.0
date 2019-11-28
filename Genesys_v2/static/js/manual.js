@@ -37,8 +37,8 @@ var armCommands = [
     window.gamepad_NULL,
     "Actuator 1 HIGH",
     "Actuator 1 LOW",
-    "Base Clockwise",
-    "Base Anti-clockwise",
+    "ARM Base Clockwise",
+    "ARM Base Anti-clockwise",
     window.gamepad_NULL,
 ];
 /*
