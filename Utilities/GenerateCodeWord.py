@@ -152,6 +152,15 @@ class GenerateCodeword:
         # print(type(self.x))
         return self.x
 
+
+    def parsePWM(self,state):
+        self.x = 0xf00
+        if state=='U':
+            self.x|=0x20
+        if state=='D':
+            self.x|=0x30
+        return self.x
+
 """
 Reference:
 https://github.com/technocratsroboticsvitc/rover/blob/master/BaseRoverComm/sockets/test/generateCommand.py
