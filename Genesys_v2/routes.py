@@ -65,7 +65,8 @@ def gamepadKeys():
     # TODO: parse the command received from the webpage
     print(motorCommand)
     socket = StationRoverSocket(ip='127.0.0.1')
-    socket.testSend(motorCommand)
+    gpc = GamepadControls()
+    socket.testSend(gpc.getCodeWord(motorCommand).to_bytes(3,'little'))
     return jsonify(status="Motor Command Received")
 
 @app.route('/addGPS')
