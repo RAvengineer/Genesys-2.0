@@ -14,7 +14,8 @@ class StationRoverSocket:
         self.PORT = port
         self.IP = ip
         self.sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-        self.sock.bind((self.IP,self.PORT))
+        # self.sock.bind((self.IP,self.PORT))
+        self.sock.connect((self.IP,self.PORT))
         self.addrAvailable = False
 
 
@@ -50,4 +51,12 @@ class StationRoverSocket:
         Parameters: message=>msg(str)
         """
         self.sock.sendto(msg.encode(),self.xbeeAddr)
+    
+
+    def testSend(self, msg):
+        """
+        Test Send made for testing the rover for last Minute Jugaad
+        Made for base as Client
+        """
+        self.sock.sendto(msg.encode(),(self.IP,self.PORT))
     
