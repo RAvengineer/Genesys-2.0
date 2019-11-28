@@ -10,12 +10,6 @@ commandsCodeWord = {
     "STOP Left": gcw.parseBase("S"),
     "Right": gcw.parseBase("R"),
     "STOP Right": gcw.parseBase("S"),
-    # Camera Number
-    "0": gcw.parseCamera(0),
-    "1": gcw.parseCamera(1),
-    "2": gcw.parseCamera(2),
-    "3": gcw.parseCamera(3),
-    "4": gcw.parseCamera(4),
     # ARM Base
     "ARM Base Left": gcw.parseArm("L"),
     "STOP ARM Base Left": gcw.parseArm("S"),
