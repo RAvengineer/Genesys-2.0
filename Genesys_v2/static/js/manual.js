@@ -136,6 +136,7 @@ function update(){
     if(gamepads[0]){
         var command = getParsedCommand(gamepads[0])
         if(command!==window.prevCommand){
+            temp = window.prevCommand; // Line Number 150 to understand, why?
             window.prevCommand = command;
             command = gamepadStatusMode(command);
             
@@ -144,14 +145,19 @@ function update(){
             command = window.gamepad_NULL;
             // Send the command to the backend
             console.log(command);
-            sendDataToBackend(command);
+            if(window.isGamepadActive){
+                if(command==="STOP")
+                sendDataToBackend(command+" "+temp);
+                else
+                sendDataToBackend(command);
+            } 
 
             // Display it in the interface
             if(window.inArmMode)
             $("#ArmStatus").text(command);
             else
             $("#BaseStatus").text(command);
-            }
+        }
     }
     window.requestAnimationFrame(update);
 }
