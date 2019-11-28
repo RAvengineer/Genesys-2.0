@@ -53,6 +53,7 @@ commandsCodeWord = {
     "STOP Decrease PWM": gcw.parsePWM("S"),
     # Random
     "Null":-1,
+    "STOP Null":-1,
     "STOP gOF":-1,
     "STOP tm":-1,    
 }
