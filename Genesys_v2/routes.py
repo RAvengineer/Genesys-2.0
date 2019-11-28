@@ -2,6 +2,7 @@ from flask import render_template, request, Response,jsonify
 from Genesys_v2 import app
 from Utilities.CamFeed import CamFeed
 from Utilities.GamepadControls import GamepadControls
+from Utilities.GenerateCodeWord import GenerateCodeword
 from Utilities.StationRoverSocket import StationRoverSocket
 
 # Variables
@@ -55,14 +56,21 @@ def changeCamera():
     # print(request.get_json()) gives {'cameraNumber': '2'}
     
     cameraNumber = request.json['cameraNumber'] # type(cameraNumber): <class 'str'>
-    print("Camera Number Selected:",cameraNumber)
+    print("Camera Number Selected:",cameraNumber) # Debugging
+
+    socket = StationRoverSocket(ip='127.0.0.1')
+    gwc = GenerateCodeword()
+    codeWord = gwc.parseCamera(int(cameraNumber))
+
+    socket.testSend(codeWord.to_bytes(3,'little'))
+    
     return jsonify(status="changed")
 
 @app.route('/gamepadKeys',methods=['POST'])
 def gamepadKeys():
     global motorCommand
     motorCommand = request.json['command']
-    print(motorCommand)
+    print(motorCommand) # Debugging
 
     socket = StationRoverSocket(ip='127.0.0.1')
     gpc = GamepadControls()
