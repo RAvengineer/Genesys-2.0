@@ -2,6 +2,7 @@ from flask import render_template, request, Response,jsonify
 from Genesys_v2 import app
 from Utilities.CamFeed import CamFeed
 from Utilities.GamepadControls import GamepadControls
+from Utilities.StationRoverSocket import StationRoverSocket
 
 # Variables
 cameraNumber = 0
@@ -63,6 +64,8 @@ def gamepadKeys():
     motorCommand = request.json['command']
     # TODO: parse the command received from the webpage
     print(motorCommand)
+    socket = StationRoverSocket(ip='127.0.0.1')
+    socket.testSend(motorCommand)
     return jsonify(status="Motor Command Received")
 
 @app.route('/addGPS')
