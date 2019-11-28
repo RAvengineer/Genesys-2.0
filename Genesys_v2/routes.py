@@ -67,7 +67,7 @@ def gamepadKeys():
     socket = StationRoverSocket(ip='127.0.0.1')
     gpc = GamepadControls()
     codeWord = gpc.getCodeWord(motorCommand)
-    
+
     if(codeWord!=-1):
         socket.testSend(codeWord.to_bytes(3,'little'))
     return jsonify(status="Motor Command Received")
