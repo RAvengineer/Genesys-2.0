@@ -9,6 +9,7 @@ from Utilities.StationRoverSocket import StationRoverSocket
 cameraNumber = 0
 gp = GamepadControls()
 motorCommand = "Null"
+gpsLocations = []
 
 # TODO: Remove later
 from random import uniform
@@ -84,8 +85,11 @@ def gamepadKeys():
 def addGPS():
     addLat = request.json["addGpsLat"]
     addLon = request.json["addGpsLon"]
-    print(addLat,addLon)
-    return jsonify(result=0)
+    print(addLat,addLon) # Debugging
+
+    global gpsLocations
+    gpsLocations.append([addLat,addLon,False])
+    return jsonify(gpsData=gpsLocations)
 
 @app.route('/getElectricalGpsValues', methods=['POST'])
 def getElectricalGpsValues():
