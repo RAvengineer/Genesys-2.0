@@ -58,5 +58,5 @@ class StationRoverSocket:
         Test Send made for testing the rover for last Minute Jugaad
         Made for base as Client
         """
-        self.sock.sendto(msg,(self.IP,self.PORT))
+        self.sock.sendto(msg.to_bytes(3,'little'),(self.IP,self.PORT))
     
