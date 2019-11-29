@@ -77,7 +77,7 @@ def gamepadKeys():
     codeWord = gpc.getCodeWord(motorCommand)
 
     if(codeWord!=-1):
-        socket.testSend(codeWord.to_bytes(3,'little'))
+        socket.testSend(codeWord)
     return jsonify(status="Motor Command Received")
 
 @app.route('/addGPS')
@@ -86,27 +86,33 @@ def addGPS():
     b = request.args.get('b', 0, type=int)
     return jsonify(result=a + b)
 
-@app.route('/getElectricalGpsValues')
+@app.route('/getElectricalGpsValues', methods=['POST'])
 def getElectricalGpsValues():
+    # Get Checked Electrical Sensors
+    electricalSensorsChecked = request.json['ElectricalSensorsChecked']
+    print(electricalSensorsChecked) # Debugging
+    sensorValues = ["Null" for i in range(8)]
+
+    socket = StationRoverSocket(ip='127.0.0.1')
+    gcw = GenerateCodeword()
+
+    for index,check in enumerate(electricalSensorsChecked):
+        if(check):
+            codeWord = gcw.parseElectrical(index+1)
+            socket.testSend(codeWord)
+            sensorValues[index] = round(uniform(0.0,5.0),1)
+
     current_gps = "CURRENT_GPS"
-    battery1 = round(uniform(20.0,24.0),1)
-    battery2 = round(uniform(20.0,24.0),1)
-    motor1 = round(uniform(0.0,5.0),1)
-    motor2 = round(uniform(0.0,5.0),1)
-    motor3 = round(uniform(0.0,5.0),1)
-    motor4 = round(uniform(0.0,5.0),1)
-    motor5 = round(uniform(0.0,5.0),1)
-    motor6 = round(uniform(0.0,5.0),1)
     return jsonify(
         current_gps = current_gps,
-        battery1=battery1,
-        battery2=battery2,
-        motor1=motor1,
-        motor2=motor2,
-        motor3=motor3,
-        motor4=motor4,
-        motor5=motor5,
-        motor6=motor6
+        battery1=sensorValues[0],
+        battery2=sensorValues[1],
+        motor1=sensorValues[2],
+        motor2=sensorValues[3],
+        motor3=sensorValues[4],
+        motor4=sensorValues[5],
+        motor5=sensorValues[6],
+        motor6=sensorValues[7]
     )
 
 @app.route('/getSensorValues')
