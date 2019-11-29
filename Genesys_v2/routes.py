@@ -62,7 +62,7 @@ def changeCamera():
     gwc = GenerateCodeword()
     codeWord = gwc.parseCamera(int(cameraNumber))
 
-    socket.testSend(codeWord.to_bytes(3,'little'))
+    socket.testSend(codeWord)
     
     return jsonify(status="changed")
 
