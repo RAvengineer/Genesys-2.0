@@ -6,18 +6,18 @@ function updateLocationList(data){
             HfLT += (
                 "<tr><td class='bg-success'>" 
                 + gps[0] 
-                + "&#8451 N "
+                + "&#176; N "
                 + gps[1]
-                + "&#8451 E</td></tr>"
+                + "&#176; E</td></tr>"
             );
         }
         else{
             HfLT += (
                 "<tr><td>" 
                 + gps[0] 
-                + "&#8451 N "
+                + "&#176; N "
                 + gps[1]
-                + "&#8451 E</td></tr>"
+                + "&#176; E</td></tr>"
             );
         }
     });
