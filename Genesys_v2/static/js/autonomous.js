@@ -1,5 +1,27 @@
 function updateLocationList(data){
-
+    gpsList = data.gpsData;
+    HfLT = "" // HTML for Location Table
+    gpsList.forEach(gps => {
+        if(gps[2]){
+            HfLT += (
+                "<tr><td class='bg-success'>" 
+                + gps[0] 
+                + "&#8451 N "
+                + gps[1]
+                + "&#8451 E</td></tr>"
+            );
+        }
+        else{
+            HfLT += (
+                "<tr><td>" 
+                + gps[0] 
+                + "&#8451 N "
+                + gps[1]
+                + "&#8451 E</td></tr>"
+            );
+        }
+    });
+    $("#locationTable").html(HfLT);
 }
 
 $("#btnAddGPS").on("click",function () {
