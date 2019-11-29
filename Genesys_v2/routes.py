@@ -80,11 +80,12 @@ def gamepadKeys():
         socket.testSend(codeWord)
     return jsonify(status="Motor Command Received")
 
-@app.route('/addGPS')
+@app.route('/addGPS', methods=['POST'])
 def addGPS():
-    a = request.args.get('a', 0, type=int)
-    b = request.args.get('b', 0, type=int)
-    return jsonify(result=a + b)
+    addLat = request.json["addGpsLat"]
+    addLon = request.json["addGpsLon"]
+    print(addLat,addLon)
+    return jsonify(result=0)
 
 @app.route('/getElectricalGpsValues', methods=['POST'])
 def getElectricalGpsValues():
