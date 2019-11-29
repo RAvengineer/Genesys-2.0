@@ -119,25 +119,31 @@ def getElectricalGpsValues():
         motor6=sensorValues[7]
     )
 
-@app.route('/getSensorValues')
+@app.route('/getSensorValues', methods=['POST'])
 def getSensorValues():
-    atmPressure = round(uniform(1004.79,1004.90),2)
-    atmTemp = round(uniform(27.00,29.00),2)
-    atmHum = round(uniform(55.00,60.00),2)
-    CH4 = round(uniform(1.850,1.854),3)
-    UV = round(uniform(0,3),0)
-    soilTemp = round(uniform(26.00,30.00),2)
-    soilpH = round(uniform(5,7),0)
-    soilMoisture = round(uniform(50,65),2)
+    # Get Checked Soil Sensors
+    soilSensorsChecked = request.json['SoilSensorsChecked']
+    print(soilSensorsChecked) # Debugging
+    sensorValues = ["Null" for i in range(8)]
+
+    socket = StationRoverSocket(ip='127.0.0.1')
+    gcw = GenerateCodeword()
+
+    for index,check in enumerate(soilSensorsChecked):
+        if(check):
+            codeWord = gcw.parseSoil(index+1)
+            socket.testSend(codeWord)
+            sensorValues[index] = round(uniform(0.0,5.0),1) # TODO: Replace with receive function
+
     return jsonify(
-        atmPressure = atmPressure,
-        atmTemp=atmTemp,
-        atmHum=atmHum,
-        CH4=CH4,
-        UV=UV,
-        soilTemp=soilTemp,
-        soilpH=soilpH,
-        soilMoisture=soilMoisture,
+        atmPressure = sensorValues[0],
+        atmTemp=sensorValues[1],
+        atmHum=sensorValues[2],
+        CH4=sensorValues[3],
+        UV=sensorValues[4],
+        soilTemp=sensorValues[5],
+        soilpH=sensorValues[6],
+        soilMoisture=sensorValues[7],
     )
 """
 TODO 1: Take gamepad values
