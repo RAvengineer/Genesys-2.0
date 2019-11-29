@@ -131,6 +131,36 @@ function sendDataToBackend(command){
 }
 
 
+function addCssToStatus(command) {
+    if(window.inArmMode){
+        $("#BaseStatus").text("IDLE");
+        $("#BaseStatus").attr("class","p-3 mb-2 rounded bg-primary text-center text-white");
+        if(command==="STOP")
+        $("#ArmStatus").attr("class","p-3 mb-2 rounded bg-danger text-center text-white");
+        else if(command===window.gamepad_NULL)
+        $("#ArmStatus").attr("class","p-3 mb-2 rounded bg-warning text-center text-white");
+        else
+        $("#ArmStatus").attr("class","p-3 mb-2 rounded bg-success text-center text-white");
+    }
+    else{
+        $("#ArmStatus").text("IDLE");
+        $("#ArmStatus").attr("class","p-3 mb-2 rounded bg-primary text-center text-white");
+        if(command==="STOP")
+        $("#BaseStatus").attr("class","p-3 mb-2 rounded bg-danger text-center text-white");
+        else if(command===window.gamepad_NULL)
+        $("#BaseStatus").attr("class","p-3 mb-2 rounded bg-warning text-center text-white");
+        else
+        $("#BaseStatus").attr("class","p-3 mb-2 rounded bg-success text-center text-white");
+    }
+    if(!window.isGamepadActive){
+        $("#BaseStatus").text("IDLE");
+        $("#BaseStatus").attr("class","p-3 mb-2 rounded bg-primary text-center text-white");
+        $("#ArmStatus").text("IDLE");
+        $("#ArmStatus").attr("class","p-3 mb-2 rounded bg-primary text-center text-white");
+    }
+}
+
+
 function update(){
     const gamepads = navigator.getGamepads()
     if(gamepads[0]){
@@ -157,6 +187,9 @@ function update(){
             $("#ArmStatus").text(command);
             else
             $("#BaseStatus").text(command);
+
+            // Make the display look cooler
+            addCssToStatus(command);
         }
     }
     window.requestAnimationFrame(update);
