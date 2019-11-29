@@ -29,6 +29,7 @@ $("#btnAddGPS").on("click",function () {
         "addGpsLat":$("#addGpsLat").val(),
         "addGpsLon":$("#addGpsLon").val(),
     }
+    if($("#addGpsLat").val()!=="" && $("#addGpsLon").val()!=="")
     $.ajax({
         type: "POST",
         url: "/addGPS",
