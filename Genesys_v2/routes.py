@@ -102,7 +102,11 @@ def getElectricalGpsValues():
             socket.testSend(codeWord)
             sensorValues[index] = round(uniform(0.0,5.0),1)
 
-    current_gps = "CURRENT_GPS"
+    # Request GPS,receive it and send it to front-end
+    codeWord = gcw.parseGpsRequest()
+    socket.testSend(codeWord)
+    current_gps = "CURRENT_GPS" # TODO: add recieve function here
+
     return jsonify(
         current_gps = current_gps,
         battery1=sensorValues[0],
