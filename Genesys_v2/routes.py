@@ -151,19 +151,7 @@ def getSensorValues():
         soilMoisture=sensorValues[7],
     )
 """
-TODO 1: Take gamepad values
-        SetInterval for calling the route '/gamepadEvents'
-        Create a class in Utilities for Gamepad Events
-        Distinguish the controls using if case, ex. ('base','forward'), ('arm','AC1')
-        Jsonify and send it to the client and display in the motors status
-TODO 2: update values periodically
-        Socket
-TODO 3: addGPS
-TODO 4: Autonomous --DONE
-        Detection Status(left arrow, right arrow, ball) --Done
-        Status Button For Autonomous --Done
-TODO 5: Hotkey Commands for Science(0-9) --DONE
-TODO 6: Fail Safe for Gamepad
+TODO: Fail Safe for Gamepad
         Also, add a code for controlling the rover through keyboard
 """
 
