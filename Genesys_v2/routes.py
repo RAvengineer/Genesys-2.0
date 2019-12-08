@@ -153,8 +153,9 @@ def getSensorValues():
         soilMoisture=sensorValues[7],
     )
 """
-TODO: Fail Safe for Gamepad
+TODO 1: Fail Safe for Gamepad
         Also, add a code for controlling the rover through keyboard
+TODO 2: Add Check to analyze Current GPS and Next GPS
 """
 
 
