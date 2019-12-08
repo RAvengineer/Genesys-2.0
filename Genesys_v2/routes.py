@@ -3,13 +3,14 @@ from Genesys_v2 import app
 from Utilities.CamFeed import CamFeed
 from Utilities.GamepadControls import GamepadControls
 from Utilities.GenerateCodeWord import GenerateCodeword
-from Utilities.StationRoverSocket import StationRoverSocket
+from Utilities.XBeeCommunications import xbeeCom
 
 # Variables
 cameraNumber = 0
 gp = GamepadControls()
 motorCommand = "Null"
 gpsLocations = []
+serial_port = '/dev/xbee'
 
 # TODO: Remove later
 from random import uniform
@@ -59,11 +60,11 @@ def changeCamera():
     cameraNumber = request.json['cameraNumber'] # type(cameraNumber): <class 'str'>
     print("Camera Number Selected:",cameraNumber) # Debugging
 
-    socket = StationRoverSocket(ip='127.0.0.1')
+    # socket = StationRoverSocket(ip='127.0.0.1')
     gwc = GenerateCodeword()
     codeWord = gwc.parseCamera(int(cameraNumber))
 
-    socket.testSend(codeWord)
+    # socket.testSend(codeWord)
     
     return jsonify(status="changed")
 
@@ -73,12 +74,13 @@ def gamepadKeys():
     motorCommand = request.json['command']
     print(motorCommand) # Debugging
 
-    socket = StationRoverSocket(ip='127.0.0.1')
+    global serial_port
+    xbee_com = xbeeCom(serial_port)
     gpc = GamepadControls()
     codeWord = gpc.getCodeWord(motorCommand)
 
     if(codeWord!=-1):
-        socket.testSend(codeWord)
+        xbee_com.send_data(codeWord)
     return jsonify(status="Motor Command Received")
 
 @app.route('/addGPS', methods=['POST'])
@@ -98,18 +100,18 @@ def getElectricalGpsValues():
     print(electricalSensorsChecked) # Debugging
     sensorValues = ["Null" for i in range(8)]
 
-    socket = StationRoverSocket(ip='127.0.0.1')
+    # socket = StationRoverSocket(ip='127.0.0.1')
     gcw = GenerateCodeword()
 
     for index,check in enumerate(electricalSensorsChecked):
         if(check):
             codeWord = gcw.parseElectrical(index+1)
-            socket.testSend(codeWord)
+            # socket.testSend(codeWord)
             sensorValues[index] = round(uniform(0.0,5.0),1)
 
     # Request GPS,receive it and send it to front-end
     codeWord = gcw.parseGpsRequest()
-    socket.testSend(codeWord)
+    # socket.testSend(codeWord)
     current_gps = "CURRENT_GPS" # TODO: add recieve function here
 
     return jsonify(
@@ -131,13 +133,13 @@ def getSensorValues():
     print(soilSensorsChecked) # Debugging
     sensorValues = ["Null" for i in range(8)]
 
-    socket = StationRoverSocket(ip='127.0.0.1')
+    # socket = StationRoverSocket(ip='127.0.0.1')
     gcw = GenerateCodeword()
 
     for index,check in enumerate(soilSensorsChecked):
         if(check):
             codeWord = gcw.parseSoil(index+1)
-            socket.testSend(codeWord)
+            # socket.testSend(codeWord)
             sensorValues[index] = round(uniform(0.0,5.0),1) # TODO: Replace with receive function
 
     return jsonify(
