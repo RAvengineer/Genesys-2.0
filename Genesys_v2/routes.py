@@ -60,11 +60,12 @@ def changeCamera():
     cameraNumber = request.json['cameraNumber'] # type(cameraNumber): <class 'str'>
     print("Camera Number Selected:",cameraNumber) # Debugging
 
-    # socket = StationRoverSocket(ip='127.0.0.1')
+    # global serial_port # TODO: Uncomment this
+    # xbee_com = xbeeCom(serial_port) # TODO: Uncomment this
     gwc = GenerateCodeword()
     codeWord = gwc.parseCamera(int(cameraNumber))
 
-    # socket.testSend(codeWord)
+    # xbee_com.send_data(codeWord) # TODO: Uncomment this
     
     return jsonify(status="changed")
 
@@ -100,18 +101,19 @@ def getElectricalGpsValues():
     print(electricalSensorsChecked) # Debugging
     sensorValues = ["Null" for i in range(8)]
 
-    # socket = StationRoverSocket(ip='127.0.0.1')
+    # global serial_port # TODO: Uncomment this
+    # xbee_com = xbeeCom(serial_port) # TODO: Uncomment this
     gcw = GenerateCodeword()
 
     for index,check in enumerate(electricalSensorsChecked):
         if(check):
             codeWord = gcw.parseElectrical(index+1)
-            # socket.testSend(codeWord)
+            # xbee_com.send_data(codeWord) # TODO: Uncomment this
             sensorValues[index] = round(uniform(0.0,5.0),1)
 
     # Request GPS,receive it and send it to front-end
     codeWord = gcw.parseGpsRequest()
-    # socket.testSend(codeWord)
+    # xbee_com.send_data(codeWord) # TODO: Uncomment this
     current_gps = "CURRENT_GPS" # TODO: add recieve function here
 
     return jsonify(
@@ -133,13 +135,14 @@ def getSensorValues():
     print(soilSensorsChecked) # Debugging
     sensorValues = ["Null" for i in range(8)]
 
-    # socket = StationRoverSocket(ip='127.0.0.1')
+    # global serial_port # TODO: Uncomment this
+    # xbee_com = xbeeCom(serial_port) # TODO: Uncomment this
     gcw = GenerateCodeword()
 
     for index,check in enumerate(soilSensorsChecked):
         if(check):
             codeWord = gcw.parseSoil(index+1)
-            # socket.testSend(codeWord)
+            # xbee_com.send_data(codeWord) # TODO: Uncomment this
             sensorValues[index] = round(uniform(0.0,5.0),1) # TODO: Replace with receive function
 
     return jsonify(
