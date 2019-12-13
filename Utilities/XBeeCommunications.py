@@ -1,7 +1,7 @@
 import serial
 
 class xbeeCom:
-    def __init__(self,port="/dev/xbee"):
+    def __init__(self,port):
         '''
         Constructor for XbeeCommunications Class.
         PORT : serial_Port to which xbee is connected i.e. /dev/ttyUSB*.
