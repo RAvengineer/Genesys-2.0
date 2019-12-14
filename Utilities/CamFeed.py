@@ -1,7 +1,7 @@
 import cv2
 
 class CamFeed:
-    def __init__(self):
+    def __init__(self,cameraDeviceNumber=0):
         """
         Constructor for CamFeed Class.
         VideoCapture object of cv2 is created here.
@@ -9,7 +9,7 @@ class CamFeed:
         # Using OpenCV to capture from device 0. If you have trouble capturing
         # from a webcam, comment the line below out and use a video file
         # instead.
-        self.video = cv2.VideoCapture(0)
+        self.video = cv2.VideoCapture(cameraDeviceNumber)
         # If you decide to use video.mp4, you must have this file in the folder
         # as the main.py.
         # self.video = cv2.VideoCapture('video.mp4')
