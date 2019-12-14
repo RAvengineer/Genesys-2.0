@@ -1,3 +1,22 @@
+setInterval(getDetectedObject,500);
+
+function getDetectedObject() {
+    $.ajax({
+        url: "/getDetObj",
+        dataType: 'json',
+        contentType: 'application/json',
+        success:updateDetectedObject,
+        fail: function(){
+            console.log("Get Detected Object in autonomous.js failed");
+        }
+    });
+}
+
+function updateDetectedObject(data) {
+    // console.log("Updating"); // Debugging
+    $("#detection_status").text(data.detected_object);
+}
+
 function updateLocationList(data){
     gpsList = data.gpsData;
     HfLT = "" // HTML for Location Table
