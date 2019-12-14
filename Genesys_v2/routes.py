@@ -1,6 +1,7 @@
 from flask import render_template, request, Response,jsonify
 from Genesys_v2 import app
 from Utilities.CamFeed import CamFeed
+from AutonomousDarknet.AutoDarknet import AutoDarknet
 from Utilities.GamepadControls import GamepadControls
 from Utilities.GenerateCodeWord import GenerateCodeword
 from Utilities.XBeeCommunications import xbeeCom
@@ -11,6 +12,8 @@ gp = GamepadControls()
 motorCommand = "Null"
 gpsLocations = []
 serial_port = '/dev/xbee'
+cameraDevicePortNumber = 0
+autoDarknet = None
 
 # TODO: Remove later
 from random import uniform
@@ -20,30 +23,67 @@ from random import uniform
 @app.route('/')
 @app.route('/Genesys_v2')
 def genesys_v2():
+    global autoDarknet
+    if(autoDarknet):
+        del(autoDarknet)
+        autoDarknet = None
     return render_template('base.html')
 
 
 @app.route('/autonomous')
 def autonomous():
+    global autoDarknet
+    if(autoDarknet):
+        del(autoDarknet)
+        autoDarknet = None
     return render_template('autonomous.html')
 
 
 @app.route('/manual')
 def manual():
+    global autoDarknet
+    if(autoDarknet):
+        del(autoDarknet)
+        autoDarknet = None
     return render_template('manual.html')
 
 
 @app.route('/science')
 def science():
+    global autoDarknet
+    if(autoDarknet):
+        del(autoDarknet)
+        autoDarknet = None
     return render_template('science.html')
 
 
 # Routes for Responsive WebPages
 @app.route('/video_feed')
 def video_feed():
-    camera = CamFeed()
+    global cameraDevicePortNumber
+    camera = CamFeed(cameraDevicePortNumber)
     return Response(camera.gen(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+@app.route('/darknet_video_feed')
+def darknet_video_feed():
+    global autoDarknet, cameraDevicePortNumber
+    autoDarknet = AutoDarknet(cameraDevicePortNumber)
+    return Response(autoDarknet.gen(),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+@app.route('/getDetObj')
+def getDetObj():
+    global autoDarknet
+    if(autoDarknet):
+        print(autoDarknet.object_detected)  # Debugging
+        return jsonify(detected_object=autoDarknet.object_detected)
+    else:
+        print("No AutoDarknet Object found!")
+        return jsonify(detected_object="Null")
+
 
 @app.route('/changeCamera',methods=['POST'])
 def changeCamera():
