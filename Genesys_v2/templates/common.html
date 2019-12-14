@@ -16,7 +16,7 @@
                 <option value="4">Four</option>
             </select>
         </div>
-        <img src="{{url_for('video_feed')}}" class="img-fluid rounded mx-auto d-block mb-2" alt="static/images/Technocrats_Robotics_v2.png">
+        <img src={% block cam_feed_url %}{% endblock cam_feed_url %} class="img-fluid rounded mx-auto d-block mb-2" alt="static/images/Technocrats_Robotics_v2.png">
     </div>
     <!-- End of Camera Feed -->
 
