@@ -1,0 +1,4 @@
+classes= 4
+train  = /media/cosmic/Data/anmol/Documents/a_vit/Sem-3/Events/Technocrats/Darknet/darknet/build/darknet/x64/data/train.txt
+names = /media/cosmic/Data/anmol/Documents/a_vit/Sem-3/Events/Technocrats/Darknet/darknet/build/darknet/x64/data/obj.names
+backup = backup/
