@@ -12,18 +12,18 @@ $("#cameraNumber").on('change',function(){
 });
 
 
-function getElectricalChecked() {
-    return [
-    $("#swtBattery1").is(':checked'),
-    $("#swtBattery2").is(':checked'),
-    $("#swtMotor1").is(':checked'),
-    $("#swtMotor2").is(':checked'),
-    $("#swtMotor3").is(':checked'),
-    $("#swtMotor4").is(':checked'),
-    $("#swtMotor5").is(':checked'),
-    $("#swtMotor6").is(':checked'),
-    ];
-}
+// function getElectricalChecked() {
+//     return [
+//     $("#swtBattery1").is(':checked'),
+//     $("#swtBattery2").is(':checked'),
+//     $("#swtMotor1").is(':checked'),
+//     $("#swtMotor2").is(':checked'),
+//     $("#swtMotor3").is(':checked'),
+//     $("#swtMotor4").is(':checked'),
+//     $("#swtMotor5").is(':checked'),
+//     $("#swtMotor6").is(':checked'),
+//     ];
+// }
 
 setInterval(getElectricalGpsValues,data_refresh_interval);
 
@@ -47,12 +47,6 @@ function updateElectricalGpsValues(data) {
     $("#currentGPS").text(data.current_gps);
     $("#battery1").text(data.battery1);
     $("#battery2").text(data.battery2);
-    $("#motor1").text(data.motor1);
-    $("#motor2").text(data.motor2);
-    $("#motor3").text(data.motor3);
-    $("#motor4").text(data.motor4);
-    $("#motor5").text(data.motor5);
-    $("#motor6").text(data.motor6);
 }
 
 /*
