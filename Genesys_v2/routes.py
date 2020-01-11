@@ -6,6 +6,8 @@ from Utilities.GamepadControls import GamepadControls
 from Utilities.GenerateCodeWord import GenerateCodeword
 from Utilities.XBeeCommunications import xbeeCom
 
+import struct
+
 # Variables
 cameraNumber = 0
 gp = GamepadControls()
@@ -14,6 +16,20 @@ gpsLocations = []
 serial_port = '/dev/xbee'
 cameraDevicePortNumber = 0
 autoDarknet = None
+sensorCalc = [
+   #[Integer, slice, function],
+    [True,lambda x:x[0], lambda x: 100-(x*100)/255],   # Moisture
+    [True,lambda x:x[1], lambda x: x], # UV Index
+    [True,lambda x:x[2], lambda x: x*5*3.5/255],   # pH
+    [True,lambda x:x[3], lambda x: log(((10/x*11.82)*(255-x))-1.33)/(-0.318)], # Methane # log(((10/x*r0)*(255-x))-b)/m
+    [True,lambda x:x[4:6], lambda x: x],    # Temperature
+    [True,lambda x:x[6], lambda x: (x*4.0)/(256*0.2)], # Battery 1
+    [True,lambda x:x[7], lambda x: (x*4.0)/(256*0.2)], # Battery 2
+    [False,lambda x:x[8:12], lambda x: x],    # Pressure
+    [False,lambda x:x[12:16], lambda x: x],    # Atm Temperature
+    [False, lambda x:x[16:20], lambda x: x],    # Humidity
+]
+
 
 # TODO: Remove later
 from random import uniform
@@ -145,8 +161,28 @@ def getSensorsValues():
 
     codeWord = gcw.parseSensors()
     # xbee_com.send_data(codeWord) # TODO: Uncomment this
+    # received_data = xcom.receive_data(20)
+
+    # Remove this 'for' as this gives only dummy data
     for index in range(10):
         sensorValues[index] = round(uniform(0.0,5.0),1)
+    # Actual value calculations
+    """global sensorCalc
+    for i in range(10):
+        if(sensorCalc[i][0]):
+            data = sensorCalc[i][1](received_data)
+            if(str(type(data))=="<class 'int'>"):
+                data = data.to_bytes(4,byteorder="little")
+            data = int.from_bytes(
+                data,
+                byteorder="little",
+                signed=False
+            )
+        else:
+            data = struct.unpack('f',sensorCalc[i][1](received_data))
+        
+        print(i,sensorCalc[i][1](received_data))
+        sensorValues[i] = sensorCalc[i][2](data)"""
 
     return jsonify(
         soilMoisture=sensorValues[0],
