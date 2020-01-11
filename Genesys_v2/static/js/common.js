@@ -25,15 +25,15 @@ $("#cameraNumber").on('change',function(){
 //     ];
 // }
 
-setInterval(getElectricalValues,data_refresh_interval);
+setInterval(getSensorValues,data_refresh_interval);
 setInterval(getGpsValues,data_refresh_interval);
 
-function getElectricalValues() {
+function getSensorValues() {
     if($("#swtSensors").is(':checked')){
         $.ajax({
             url: "/getSensorValues",
             contentType: 'application/json',
-            success:updateElectricalValues,
+            success:updateSensorValues,
             fail: function(){
                 console.log("Get Electrical Values in common.js failed");
             }
@@ -41,10 +41,20 @@ function getElectricalValues() {
     }
 }
 
-function updateElectricalValues(data) {
+function updateSensorValues(data) {
     // console.log("Updating Electrical Sensor Values"); // Debugging
     $("#battery1").text(data.battery1);
     $("#battery2").text(data.battery2);
+
+    // console.log("Updating Sensors"); // Debugging
+    $("#atmPressure").text(data.atmPressure);
+    $("#atmTemp").text(data.atmTemp);
+    $("#atmHum").text(data.atmHum);
+    $("#CH4").text(data.CH4);
+    $("#UV").text(data.UV);
+    $("#soilTemp").text(data.soilTemp);
+    $("#soilpH").text(data.soilpH);
+    $("#soilMoisture").text(data.soilMoisture);
 }
 
 
