@@ -134,22 +134,40 @@ def addGPS():
     gpsLocations.append([addLat,addLon,False])
     return jsonify(gpsData=gpsLocations)
 
-@app.route('/getElectricalGpsValues', methods=['POST'])
-def getElectricalGpsValues():
-    # Get Checked Electrical Sensors
-    electricalSensorsChecked = request.json['ElectricalSensorsChecked']
-    print(electricalSensorsChecked) # Debugging
-    sensorValues = ["Null" for i in range(8)]
+@app.route('/getSensorValues')
+def getSensorsValues():
+    print("get Sensor Values") # Debugging
+    sensorValues = ["Null" for i in range(10)]
 
     # global serial_port # TODO: Uncomment this
     # xbee_com = xbeeCom(serial_port) # TODO: Uncomment this
     gcw = GenerateCodeword()
 
-    for index,check in enumerate(electricalSensorsChecked):
-        if(check):
-            codeWord = gcw.parseElectrical(index+1)
-            # xbee_com.send_data(codeWord) # TODO: Uncomment this
-            sensorValues[index] = round(uniform(0.0,5.0),1)
+    codeWord = gcw.parseSensors()
+    # xbee_com.send_data(codeWord) # TODO: Uncomment this
+    for index in range(10):
+        sensorValues[index] = round(uniform(0.0,5.0),1)
+
+    return jsonify(
+        soilMoisture=sensorValues[0],
+        soilpH=sensorValues[1],
+        UV=sensorValues[2],
+        CH4=sensorValues[3],
+        soilTemp=sensorValues[4],
+        battery1=sensorValues[5],
+        battery2=sensorValues[6],
+        atmPressure=sensorValues[7],
+        atmTemp=sensorValues[8],
+        atmHum=sensorValues[9]
+    )
+
+@app.route('/getGpsValues')
+def getGpsValues():
+    print("get GPS Values") # Debugging
+
+    # global serial_port # TODO: Uncomment this
+    # xbee_com = xbeeCom(serial_port) # TODO: Uncomment this
+    gcw = GenerateCodeword()
 
     # Request GPS,receive it and send it to front-end
     codeWord = gcw.parseGpsRequest()
@@ -157,43 +175,7 @@ def getElectricalGpsValues():
     current_gps = "CURRENT_GPS" # TODO: add recieve function here
 
     return jsonify(
-        current_gps = current_gps,
-        battery1=sensorValues[0],
-        battery2=sensorValues[1],
-        motor1=sensorValues[2],
-        motor2=sensorValues[3],
-        motor3=sensorValues[4],
-        motor4=sensorValues[5],
-        motor5=sensorValues[6],
-        motor6=sensorValues[7]
-    )
-
-@app.route('/getSensorValues', methods=['POST'])
-def getSensorValues():
-    # Get Checked Soil Sensors
-    soilSensorsChecked = request.json['SoilSensorsChecked']
-    print(soilSensorsChecked) # Debugging
-    sensorValues = ["Null" for i in range(8)]
-
-    # global serial_port # TODO: Uncomment this
-    # xbee_com = xbeeCom(serial_port) # TODO: Uncomment this
-    gcw = GenerateCodeword()
-
-    for index,check in enumerate(soilSensorsChecked):
-        if(check):
-            codeWord = gcw.parseSoil(index+1)
-            # xbee_com.send_data(codeWord) # TODO: Uncomment this
-            sensorValues[index] = round(uniform(0.0,5.0),1) # TODO: Replace with receive function
-
-    return jsonify(
-        atmPressure = sensorValues[0],
-        atmTemp=sensorValues[1],
-        atmHum=sensorValues[2],
-        CH4=sensorValues[3],
-        UV=sensorValues[4],
-        soilTemp=sensorValues[5],
-        soilpH=sensorValues[6],
-        soilMoisture=sensorValues[7],
+        current_gps = current_gps
     )
 """
 TODO 1: Fail Safe for Gamepad
