@@ -74,24 +74,8 @@ class GenerateCodeword:
             self.x|=0x30
         return self.x
 
-    def parseSoil(self,sensorNum):
+    def parseSensors(self):
         self.x = 0x800
-        if sensorNum==1:
-            self.x|=0x80
-        if sensorNum==2:
-            self.x|=0x40
-        if sensorNum==3:
-            self.x|=0x20
-        if sensorNum==4:
-            self.x|=0x10
-        if sensorNum==5:
-            self.x|=0x8
-        if sensorNum==6:
-            self.x|=0x4
-        if sensorNum==7:
-            self.x|=0x2
-        if sensorNum==8:
-            self.x|=0x1
         return self.x
 
     def parseGpsRequest(self):
