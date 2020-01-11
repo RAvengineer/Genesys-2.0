@@ -11,20 +11,6 @@ $("#cameraNumber").on('change',function(){
     });
 });
 
-
-// function getElectricalChecked() {
-//     return [
-//     $("#swtBattery1").is(':checked'),
-//     $("#swtBattery2").is(':checked'),
-//     $("#swtMotor1").is(':checked'),
-//     $("#swtMotor2").is(':checked'),
-//     $("#swtMotor3").is(':checked'),
-//     $("#swtMotor4").is(':checked'),
-//     $("#swtMotor5").is(':checked'),
-//     $("#swtMotor6").is(':checked'),
-//     ];
-// }
-
 setInterval(getSensorValues,data_refresh_interval);
 setInterval(getGpsValues,data_refresh_interval);
 
