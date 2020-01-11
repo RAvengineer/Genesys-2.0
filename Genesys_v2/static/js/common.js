@@ -25,28 +25,43 @@ $("#cameraNumber").on('change',function(){
 //     ];
 // }
 
-setInterval(getElectricalGpsValues,data_refresh_interval);
+setInterval(getElectricalValues,data_refresh_interval);
+setInterval(getGpsValues,data_refresh_interval);
 
-function getElectricalGpsValues() {
-    data_to_be_sent = {'ElectricalSensorsChecked':getElectricalChecked()};
+function getElectricalValues() {
+    if($("#swtSensors").is(':checked')){
+        $.ajax({
+            url: "/getSensorValues",
+            contentType: 'application/json',
+            success:updateElectricalValues,
+            fail: function(){
+                console.log("Get Electrical Values in common.js failed");
+            }
+        });
+    }
+}
+
+function updateElectricalValues(data) {
+    // console.log("Updating Electrical Sensor Values"); // Debugging
+    $("#battery1").text(data.battery1);
+    $("#battery2").text(data.battery2);
+}
+
+
+function getGpsValues() {
     $.ajax({
-        type: "POST",
-        url: "/getElectricalGpsValues",
-        dataType: 'json',
+        url: "/getGpsValues",
         contentType: 'application/json',
-        data: JSON.stringify(data_to_be_sent),
-        success:updateElectricalGpsValues,
+        success:updateGpsValues,
         fail: function(){
-            console.log("Get Electrical Values in common.js failed");
+            console.log("Get GPS Values in common.js failed");
         }
     });
 }
 
-function updateElectricalGpsValues(data) {
-    // console.log("Updating"); // Debugging
+function updateGpsValues(data) {
+    console.log("Updating GPS"); // Debugging
     $("#currentGPS").text(data.current_gps);
-    $("#battery1").text(data.battery1);
-    $("#battery2").text(data.battery2);
 }
 
 /*
