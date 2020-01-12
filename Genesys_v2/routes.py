@@ -30,6 +30,9 @@ sensorCalc = [
     [False, lambda x:x[16:20], lambda x: x],    # Humidity
 ]
 
+# Objects/ Instances
+xbee_com = xbeeCom(serial_port)
+
 
 # TODO: Remove later
 from random import uniform
@@ -131,8 +134,8 @@ def gamepadKeys():
     motorCommand = request.json['command']
     print(motorCommand) # Debugging
 
-    global serial_port
-    xbee_com = xbeeCom(serial_port)
+    global xbee_com
+    # xbee_com = xbeeCom(serial_port)
     gpc = GamepadControls()
     codeWord = gpc.getCodeWord(motorCommand)
 
