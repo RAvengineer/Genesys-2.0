@@ -7,6 +7,7 @@ from Utilities.GenerateCodeWord import GenerateCodeword
 from Utilities.XBeeCommunications import xbeeCom
 
 import struct
+from math import log
 
 # Variables
 cameraNumber = 0
@@ -21,7 +22,7 @@ sensorCalc = [
     [True,lambda x:x[0], lambda x: 100-(x*100)/255],   # Moisture
     [True,lambda x:x[1], lambda x: x], # UV Index
     [True,lambda x:x[2], lambda x: x*5*3.5/255],   # pH
-    [True,lambda x:x[3], lambda x: log(((10/x*11.82)*(255-x))-1.33)/(-0.318)], # Methane # log(((10/x*r0)*(255-x))-b)/m
+    [True,lambda x:x[3], lambda x: x if x==0 else log(((10/x*11.82)*(255-x))-1.33)/(-0.318)], # Methane # log(((10/x*r0)*(255-x))-b)/m
     [True,lambda x:x[4:6], lambda x: x],    # Temperature
     [True,lambda x:x[6], lambda x: (x*4.0)/(256*0.2)], # Battery 1
     [True,lambda x:x[7], lambda x: (x*4.0)/(256*0.2)], # Battery 2
