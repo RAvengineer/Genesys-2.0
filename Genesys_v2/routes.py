@@ -32,6 +32,7 @@ sensorCalc = [
 
 # Objects/ Instances
 xbee_com = xbeeCom(serial_port)
+gcw = GenerateCodeword()
 
 
 # TODO: Remove later
@@ -119,10 +120,8 @@ def changeCamera():
     cameraNumber = request.json['cameraNumber'] # type(cameraNumber): <class 'str'>
     print("Camera Number Selected:",cameraNumber) # Debugging
 
-    # global serial_port # TODO: Uncomment this
-    # xbee_com = xbeeCom(serial_port) # TODO: Uncomment this
-    gwc = GenerateCodeword()
-    codeWord = gwc.parseCamera(int(cameraNumber))
+    global xbee_com,gcw
+    codeWord = gcw.parseCamera(int(cameraNumber))
 
     # xbee_com.send_data(codeWord) # TODO: Uncomment this
     
@@ -135,7 +134,6 @@ def gamepadKeys():
     print(motorCommand) # Debugging
 
     global xbee_com
-    # xbee_com = xbeeCom(serial_port)
     gpc = GamepadControls()
     codeWord = gpc.getCodeWord(motorCommand)
 
@@ -158,9 +156,7 @@ def getSensorsValues():
     print("get Sensor Values") # Debugging
     sensorValues = ["Null" for i in range(10)]
 
-    # global serial_port # TODO: Uncomment this
-    # xbee_com = xbeeCom(serial_port) # TODO: Uncomment this
-    gcw = GenerateCodeword()
+    global xbee_com, gcw
 
     codeWord = gcw.parseSensors()
     # xbee_com.send_data(codeWord) # TODO: Uncomment this
@@ -204,9 +200,8 @@ def getSensorsValues():
 def getGpsValues():
     print("get GPS Values") # Debugging
 
-    # global serial_port # TODO: Uncomment this
+    global xbee_com, gcw # TODO: Uncomment this
     # xbee_com = xbeeCom(serial_port) # TODO: Uncomment this
-    gcw = GenerateCodeword()
 
     # Request GPS,receive it and send it to front-end
     codeWord = gcw.parseGpsRequest()
