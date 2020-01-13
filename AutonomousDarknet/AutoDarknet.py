@@ -132,8 +132,8 @@ class AutoDarknet:
             print("Confidence Value for NULL is : ", conf_result[3])
             print("-----------------------------------\n")
 
-            counter = 0
-            conf_list.clear()
+            counter = frames_taken - 1
+            conf_list.pop(0)
 
     def get_frame(self):
         """Reads the frames from the Camera and returns the image with annotation,
