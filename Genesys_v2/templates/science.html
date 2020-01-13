@@ -61,10 +61,8 @@
         <div class="p-3 mb-2 rounded bg-primary text-center text-white" id="BaseStatus">Idle</div>
     </div>
     <div class="col ml-1 border border-success my-auto">
-        <p><b>Hot Keys</b></p>
-        {% for i in range(10) %}
-        <button type="button" class="btn btn-danger mb-2 p-3" id="btnHotKeys{{i}}">{{i}}</button>
-        {% endfor %}
+        <p><b>Drill Chasis Status</b></p>
+        <div class="p-3 mb-2 rounded bg-primary text-center text-white" id="ArmStatus">Idle</div>
     </div>
 </div>
 {% endblock extra_body_bottom %}
