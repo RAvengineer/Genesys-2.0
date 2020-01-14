@@ -74,6 +74,10 @@ class GenerateCodeword:
         self.x = 0x800
         return self.x
 
+    def parseMagnetometerRequest(self):
+        self.x = 0x900
+        return self.x
+
     def parseGpsRequest(self):
         self.x = 0xa00
         return self.x
