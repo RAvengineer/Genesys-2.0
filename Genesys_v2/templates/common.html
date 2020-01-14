@@ -61,13 +61,15 @@
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
                 <tr>
-                    <th colspan="2" scope="col">GPS Values</th>
+                    <th colspan="4" scope="col">GPS and Magnetometer Values</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <th scope="row">Current Location</th>
                     <td id="currentGPS">41°24'12.2"N 2°10'26.5"E</td>
+                    <th scope="row">Compass</th>
+                    <td id="compass">137.554°</td>
                 </tr>
                 {% block addGPS %}{% endblock addGPS %}
             </tbody>
