@@ -20,10 +20,6 @@ class GenerateCodeword:
             self.x|=0x00
         if cameraNum == 2:
             self.x|=0x10
-        if cameraNum == 3:
-            self.x|=0x20
-        if cameraNum == 4:
-            self.x|=0x30
         return self.x
 
     def parseArm(self,direction):
