@@ -12,7 +12,7 @@ $("#cameraNumber").on('change',function(){
 });
 
 setInterval(getSensorValues,data_refresh_interval);
-setInterval(getGpsValues,data_refresh_interval);
+setInterval(getGpsValues,data_refresh_interval*5);
 
 function getSensorValues() {
     if($("#swtSensors").is(':checked')){
