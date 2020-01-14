@@ -10,7 +10,7 @@ class xbeeCom:
         '''
         self.PORT = port
         self.BAUD = 9600
-        self.ser = serial.Serial(port=self.PORT,baudrate=self.BAUD)
+        self.ser = serial.Serial(port=self.PORT,baudrate=self.BAUD,timeout=5)
     
     def __del__(self):
         """Destructor for the XbeeCommunications Class."""
