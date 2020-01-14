@@ -45,6 +45,43 @@ commandsCodeWord = {
     "STOP Increase PWM": gcw.parsePWM("S"),
     "Decrease PWM": gcw.parsePWM("D"),
     "STOP Decrease PWM": gcw.parsePWM("S"),
+
+    # Science
+    # Pump Motor 2
+    "Pump Motor 2 LOW": gcw.parseArm("L"),
+    "STOP Pump Motor 2 LOW": gcw.parseArm("S"),
+    "Pump Motor 2 HIGH": gcw.parseArm("R"),
+    "STOP Pump Motor 2 HIGHt": gcw.parseArm("S"),
+    # Pump Motor 1
+    "Pump Motor 1 HIGH": gcw.parseActuator1("E"),
+    "STOP Pump Motor 1 HIGH": gcw.parseActuator1("S"),
+    "Pump Motor 1 LOW": gcw.parseActuator1("R"),
+    "STOP Pump Motor 1 LOW": gcw.parseActuator1("S"),
+    # Auger Chasis
+    "Auger Chasis UP": gcw.parseActuator2("E"),
+    "STOP Auger Chasis UP": gcw.parseActuator2("S"),
+    "Auger Chasis DOWN": gcw.parseActuator2("R"),
+    "STOP Auger Chasis DOWN": gcw.parseActuator2("S"),
+    # Auger Soil
+    "Auger Soil COLLECT": gcw.parseActuator3("E"),
+    "STOP Auger Soil COLLECT": gcw.parseActuator3("S"),
+    "Auger Soil DUMP": gcw.parseActuator3("R"),
+    "STOP Auger Soil DUMP": gcw.parseActuator3("S"),
+    #  Stepper
+    "Stepper Anti-clockwise": gcw.parseGripperDir("L"),
+    "STOP Stepper Anti-clockwise": gcw.parseGripperDir("S"),
+    "Stepper Clockwise": gcw.parseGripperDir("R"),
+    "STOP Stepper Clockwise": gcw.parseGripperDir("S"),
+    # Auger Soil & Chasis
+    "Auger Soil & Chasis UP": gcw.parseGripperState("O"),
+    "STOP Auger Soil & Chasis UP": gcw.parseGripperState("S"),
+    "Auger Soil & Chasis DOWN": gcw.parseGripperState("C"),
+    "STOP Auger Soil & Chasis DOWNE": gcw.parseGripperState("S"),
+    # Tray
+    "Tray IN": gcw.parsePWM("U"),
+    "STOP Tray IN": gcw.parsePWM("S"),
+    "Tray OUT": gcw.parsePWM("D"),
+    "STOP Tray OUT": gcw.parsePWM("S"),
     # Random
     "Null":-1,
     "STOP Null":-1,
