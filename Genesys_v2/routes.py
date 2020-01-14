@@ -216,6 +216,26 @@ def getGpsValues():
     return jsonify(
         current_gps = current_gps
     )
+
+@app.route('/getCompassValues')
+def getCompassValues():
+    print("get Compass Values") # Debugging
+
+    global xbee_com, gcw # TODO: Uncomment this
+    # xbee_com = xbeeCom(serial_port) # TODO: Uncomment this
+
+    # Request GPS,receive it and send it to front-end
+    codeWord = gcw.parseMagnetometerRequest()
+    # xbee_com.send_data(codeWord) # TODO: Uncomment this
+    magnetometer = "Compass" # TODO: add recieve function here
+    magnetometer = xbee_com.receive_data(4)
+    if(magnetometer):
+        magnetometer = struct.unpack("f",magnetometer)
+    else:
+        magnetometer = "No Compass received"
+    return jsonify(
+        magnetometer = magnetometer
+    )
 """
 TODO 1: Fail Safe for Gamepad
         Also, add a code for controlling the rover through keyboard
