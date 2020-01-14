@@ -208,7 +208,11 @@ def getGpsValues():
     codeWord = gcw.parseGpsRequest()
     # xbee_com.send_data(codeWord) # TODO: Uncomment this
     current_gps = "CURRENT_GPS" # TODO: add recieve function here
-
+    current_gps = xbee_com.receive_data(8)
+    if(current_gps):
+        current_gps = struct.unpack("f",current_gps[:4])+"&#176;N "+struct.unpack("f",current_gps[4:])+"&#176;E "
+    else:
+        current_gps = "No GPS received"
     return jsonify(
         current_gps = current_gps
     )
