@@ -13,6 +13,7 @@ $("#cameraNumber").on('change',function(){
 
 setInterval(getSensorValues,data_refresh_interval);
 setInterval(getGpsValues,data_refresh_interval*5);
+setInterval(getCompassValues,data_refresh_interval*5);
 
 function getSensorValues() {
     if($("#swtSensors").is(':checked')){
@@ -58,6 +59,22 @@ function getGpsValues() {
 function updateGpsValues(data) {
     console.log("Updating GPS"); // Debugging
     $("#currentGPS").text(data.current_gps);
+}
+
+function getCompassValues() {
+    $.ajax({
+        url: "/getCompassValues",
+        contentType: 'application/json',
+        success:updateCompassValues,
+        fail: function(){
+            console.log("Get Compass Values in common.js failed");
+        }
+    });
+}
+
+function updateCompassValues(data) {
+    console.log("Updating Compass"); // Debugging
+    $("#compass").text(data.magnetometer);
 }
 
 /*
