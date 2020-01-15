@@ -183,6 +183,9 @@ def getSensorsValues():
         
         print(i,sensorCalc[i][1](received_data))
         sensorValues[i] = sensorCalc[i][2](data)"""
+    
+    sensorValues[4] = sensorValues[8] - 1
+    sensorValues[1] -= 1
 
     return jsonify(
         soilMoisture=sensorValues[0],
@@ -201,8 +204,7 @@ def getSensorsValues():
 def getGpsCompassValues():
     print("get GPS  and Compass Values") # Debugging
 
-    global xbee_com, gcw # TODO: Uncomment this
-    # xbee_com = xbeeCom(serial_port) # TODO: Uncomment this
+    global xbee_com, gcw
 
     # Request GPS,receive it and send it to front-end
     codeWord = gcw.parseGpsCompassRequest()
