@@ -78,7 +78,7 @@ class GenerateCodeword:
         self.x = 0x900
         return self.x
 
-    def parseGpsRequest(self):
+    def parseGpsCompassRequest(self):
         self.x = 0xa00
         return self.x
 
