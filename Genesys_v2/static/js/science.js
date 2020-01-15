@@ -196,6 +196,20 @@ function update(){
 }
 window.requestAnimationFrame(update);
 
+
+$("#microSnaps").on('click',function(){
+    $("#microSnaps").text("Taking Snaps...");
+    $("#microSnaps").attr("class","btn btn-primary disabled");
+    data_to_be_sent = {'cameraNumber':'3'};
+    $.ajax({
+        type: "POST",
+        url: "/changeCamera",
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(data_to_be_sent),
+    });
+});
+
 /*
 References:
 * Controller.js: https://samiare.github.io/Controller.js/
