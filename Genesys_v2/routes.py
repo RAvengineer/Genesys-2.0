@@ -124,7 +124,7 @@ def changeCamera():
     global xbee_com,gcw
     codeWord = gcw.parseCamera(int(cameraNumber))
 
-    # xbee_com.send_data(codeWord) # TODO: Uncomment this
+    xbee_com.send_data(codeWord) # TODO: Uncomment this
     
     return jsonify(status="changed")
 
@@ -197,43 +197,32 @@ def getSensorsValues():
         atmHum=sensorValues[9]
     )
 
-@app.route('/getGpsValues')
-def getGpsValues():
-    print("get GPS Values") # Debugging
+@app.route('/getGpsCompassValues')
+def getGpsCompassValues():
+    print("get GPS  and Compass Values") # Debugging
 
     global xbee_com, gcw # TODO: Uncomment this
     # xbee_com = xbeeCom(serial_port) # TODO: Uncomment this
 
     # Request GPS,receive it and send it to front-end
-    codeWord = gcw.parseGpsRequest()
-    # xbee_com.send_data(codeWord) # TODO: Uncomment this
-    current_gps = "CURRENT_GPS" # TODO: add recieve function here
-    current_gps = xbee_com.receive_data(8)
-    if(current_gps):
-        current_gps = struct.unpack("f",current_gps[:4])+"&#176;N "+struct.unpack("f",current_gps[4:])+"&#176;E "
-    else:
-        current_gps = "No GPS received"
+    codeWord = gcw.parseGpsCompassRequest()
+    xbee_com.send_data(codeWord) # TODO: Uncomment this
+    current_gps = "No GPS received" # TODO: add recieve function here
+    magnetometer = "No Compass received"
+    received_data = xbee_com.receive_data(12)
+    print(received_data)
+    if(len(received_data)==12):
+        if(received_data):
+            current_gps = str(struct.unpack("f",received_data[:4])[0])+"°N "+str(struct.unpack("f",received_data[4:8])[0])+"°E"
+        else:
+            current_gps = "No GPS received"
+        if(received_data[8:]):
+            magnetometer = str(struct.unpack("f",received_data[8:])[0])
+        else:
+            magnetometer = "No Compass received"
+        
     return jsonify(
-        current_gps = current_gps
-    )
-
-@app.route('/getCompassValues')
-def getCompassValues():
-    print("get Compass Values") # Debugging
-
-    global xbee_com, gcw # TODO: Uncomment this
-    # xbee_com = xbeeCom(serial_port) # TODO: Uncomment this
-
-    # Request GPS,receive it and send it to front-end
-    codeWord = gcw.parseMagnetometerRequest()
-    # xbee_com.send_data(codeWord) # TODO: Uncomment this
-    magnetometer = "Compass" # TODO: add recieve function here
-    magnetometer = xbee_com.receive_data(4)
-    if(magnetometer):
-        magnetometer = struct.unpack("f",magnetometer)
-    else:
-        magnetometer = "No Compass received"
-    return jsonify(
+        current_gps = current_gps,
         magnetometer = magnetometer
     )
 """
