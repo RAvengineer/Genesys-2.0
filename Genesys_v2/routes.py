@@ -8,6 +8,7 @@ from Utilities.XBeeCommunications import xbeeCom
 
 import struct
 from math import log
+from time import localtime,time
 
 # Variables
 cameraNumber = 0
@@ -30,6 +31,7 @@ sensorCalc = [
     [False,lambda x:x[12:16], lambda x: x],    # Atm Temperature
     [False, lambda x:x[16:20], lambda x: x],    # Humidity
 ]
+current_gps = "None"
 
 # Objects/ Instances
 xbee_com = xbeeCom(serial_port)
@@ -157,7 +159,7 @@ def getSensorsValues():
     print("get Sensor Values") # Debugging
     sensorValues = ["Null" for i in range(10)]
 
-    global xbee_com, gcw
+    global xbee_com, gcw, current_gps
 
     codeWord = gcw.parseSensors()
     # xbee_com.send_data(codeWord) # TODO: Uncomment this
@@ -184,8 +186,22 @@ def getSensorsValues():
         print(i,sensorCalc[i][1](received_data))
         sensorValues[i] = sensorCalc[i][2](data)"""
     
+    # Tweak the sensor value to match our needs(in short, JUGAAD!)
     sensorValues[4] = sensorValues[8] - 1
     sensorValues[1] -= 1
+
+    # Write sensors and GPS values to a file with timestamp
+    l = localtime(time())
+    currentTime = str(l.tm_hour)+":"+str(l.tm_min)+":"+str(l.tm_sec)
+    scienceData = list()
+    scienceData.append(currentTime)
+    scienceData.append(current_gps)
+    scienceData.extend(sensorValues)
+    data = ",".join([str(x) for x in scienceData])
+    data += "\n"
+    file = open("../sensorGpsValues.txt",'a')
+    file.write(data)
+    file.close()
 
     return jsonify(
         soilMoisture=sensorValues[0],
@@ -204,7 +220,7 @@ def getSensorsValues():
 def getGpsCompassValues():
     print("get GPS  and Compass Values") # Debugging
 
-    global xbee_com, gcw
+    global xbee_com, gcw, current_gps
 
     # Request GPS,receive it and send it to front-end
     codeWord = gcw.parseGpsCompassRequest()
