@@ -22,7 +22,7 @@ class xbeeCom:
         you may know.
         '''
         data = self.ser.read(return_length)
-        data = data.decode()
+        # data = data.decode()
         return data
 
     def send_data(self,command):
