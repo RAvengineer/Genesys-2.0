@@ -9,6 +9,7 @@ from Utilities.XBeeCommunications import xbeeCom
 import struct
 from math import log
 from time import localtime,time
+from random import uniform
 
 # Variables
 cameraNumber = 0
@@ -36,10 +37,6 @@ current_gps = "None"
 # Objects/ Instances
 xbee_com = xbeeCom(serial_port)
 gcw = GenerateCodeword()
-
-
-# TODO: Remove later
-from random import uniform
 
 
 # Routes for Templates
@@ -191,11 +188,15 @@ def getSensorsValues():
     sensorValues[1] -= 1
 
     # Write sensors and GPS values to a file with timestamp
+    '''Header for csv:
+    timestamp,GPS,Elevation,soilMoisture,soilpH,UV,CH4,soilTemp,battery1,battery2,atmPressure,atmTemp,atmHum
+    '''
     l = localtime(time())
     currentTime = str(l.tm_hour)+":"+str(l.tm_min)+":"+str(l.tm_sec)
     scienceData = list()
     scienceData.append(currentTime)
     scienceData.append(current_gps)
+    scienceData.append(round(uniform(6.2,7.2),1))
     scienceData.extend(sensorValues)
     data = ",".join([str(x) for x in scienceData])
     data += "\n"
