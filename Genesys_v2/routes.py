@@ -232,7 +232,7 @@ def getGpsCompassValues():
     print(received_data)
     if(len(received_data)==12):
         if(received_data):
-            current_gps = str(struct.unpack("f",received_data[:4])[0])+"°N "+str(struct.unpack("f",received_data[4:8])[0])+"°E"
+            current_gps = str(struct.unpack("f",received_data[:4])[0])+" "+str(struct.unpack("f",received_data[4:8])[0])
         else:
             current_gps = "No GPS received"
         if(received_data[8:]):
