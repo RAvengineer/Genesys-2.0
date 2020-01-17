@@ -11,8 +11,8 @@ $("#cameraNumber").on('change',function(){
     });
 });
 
-setInterval(getSensorValues,data_refresh_interval);
-setInterval(getGpsCompassValues,data_refresh_interval*5);
+setInterval(getSensorValues,20000);
+setInterval(getGpsCompassValues,data_refresh_interval*3);
 // setInterval(getCompassValues,1531);
 
 function getSensorValues() {
